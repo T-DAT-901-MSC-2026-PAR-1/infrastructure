@@ -15,7 +15,7 @@ On Linux, you can install Just using Python and pipx:
 ```sh
 python3 -m pip install --user pipx
 python3 -m pipx ensurepath
-pipx install just
+pipx install rust-just
 ```
 
 For other platforms and installation methods, see the [Just installation guide](https://github.com/casey/just#installation).
