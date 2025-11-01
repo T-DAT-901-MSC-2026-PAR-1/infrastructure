@@ -1,12 +1,16 @@
 terraform {
 
-  # Use Terraform Cloud as the backend to store the state file
-  backend "remote" {
-    organization = "glopez-personnal"
+  # Temporarily using local backend for development
+  # To switch back to Terraform Cloud, uncomment the remote backend below and comment out local backend
+  # backend "remote" {
+  #   organization = "glopez-personnal"
+  #
+  #   workspaces {
+  #     name = "cryptoviz-google-kubernetes-engine"
+  #   }
+  # }
 
-    workspaces {
-      name = "cryptoviz-google-kubernetes-engine"
-    }
+  backend "local" {
   }
 
   required_version = ">= 1.6"
