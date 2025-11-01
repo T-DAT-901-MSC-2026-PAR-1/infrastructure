@@ -1,0 +1,30 @@
+installCRDs: true
+
+startupapicheck:
+  enabled: false
+
+serviceAccount:
+  create: true
+
+# istio-csr:
+#   enabled: false # -> not necessary for Let's Encrypt via ingress
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+
+global:
+  leaderElection:
+    namespace: cert-manager
+
+webhook:
+  serviceAccount:
+    create: true
+
+cainjector:
+  serviceAccount:
+    create: true
