@@ -10,7 +10,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/cryptoviz/infrastructure
+    repoURL: https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure
     targetRevision: main
     path: argocd/applications/
     directory:

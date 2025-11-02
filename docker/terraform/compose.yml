@@ -9,6 +9,8 @@ services:
       - terraform_cache:/root/.terraform.d
       # Cache pour les providers
       - terraform_plugins:/root/.terraform
+      # Mount GCP credentials
+      - ~/.config/gcloud:/root/.config/gcloud:ro
     env_file: .env
     stdin_open: true
     tty: true
