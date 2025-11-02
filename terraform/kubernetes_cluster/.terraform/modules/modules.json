@@ -1,1 +1,0 @@
-{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"kubernetes_cluster","Source":"git::https://github.com/cryptoviz/infrastructure.git//terraform/modules/kubernetes_cluster?ref=main","Dir":".terraform/modules/kubernetes_cluster/terraform/modules/kubernetes_cluster"}]}

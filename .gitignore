@@ -1,1 +1,7 @@
 terraform-sa-key.json
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+tfplan
