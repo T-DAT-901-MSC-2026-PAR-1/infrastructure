@@ -16,7 +16,7 @@ spec:
       valueFiles:
         - $values/argocd/infrastructure/cert-manager/values.yaml
 
-  - repoURL: 'https://github.com/cryptoviz/infrastructure.git'
+  - repoURL: 'https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure.git'
     targetRevision: main
     ref: values
 
