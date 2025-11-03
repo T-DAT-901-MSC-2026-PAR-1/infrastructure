@@ -9,6 +9,11 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # Disable SSL redirect for ACME challenge validation (HTTP-01 requires plain HTTP)
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location /.well-known/acme-challenge/ {
+        default_type text/plain;
+      }
 spec:
   ingressClassName: nginx
   rules:
