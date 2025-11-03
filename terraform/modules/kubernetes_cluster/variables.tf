@@ -20,3 +20,8 @@ variable "argocd_domain" {
   default     = "argocd.cryptoviz.epitech-msc2026.me"
   type        = string
 }
+
+variable "ingress_ip_address" {
+  description = "Static IP address for the ingress controller LoadBalancer"
+  type        = string
+}

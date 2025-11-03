@@ -12,6 +12,20 @@ locals {
 }
 
 ####################################################################################################
+# Create a ConfigMap to store infrastructure configuration
+####################################################################################################
+resource "kubernetes_config_map" "infrastructure_config" {
+  metadata {
+    name      = "infrastructure-config"
+    namespace = "default"
+  }
+
+  data = {
+    ingress_ip_address = var.ingress_ip_address
+  }
+}
+
+####################################################################################################
 # Create the namespace for ArgoCD
 ####################################################################################################
 
@@ -29,7 +43,7 @@ resource "kubernetes_namespace" "argocd" {
 ####################################################################################################
 
 resource "helm_release" "argocd" {
-  depends_on = [kubernetes_namespace.argocd]
+  depends_on = [kubernetes_namespace.argocd, kubernetes_config_map.infrastructure_config]
 
   name       = "argocd"
   repository = "https://argoproj.github.io/argo-helm"
@@ -50,6 +64,35 @@ resource "helm_release" "argocd" {
   # Wait for the nodes to be ready
   wait          = true
   wait_for_jobs = true
+}
+
+####################################################################################################
+# Create a script to update nginx-ingress values with the dynamic IP
+####################################################################################################
+resource "kubernetes_manifest" "nginx_values_patch" {
+  manifest = {
+    apiVersion = "v1"
+    kind       = "ConfigMap"
+    metadata = {
+      name      = "nginx-values-patch"
+      namespace = "argocd"
+    }
+    data = {
+      "nginx-values.yaml" = yamlencode({
+        controller = {
+          service = {
+            type             = "LoadBalancer"
+            loadBalancerIP   = var.ingress_ip_address
+            annotations = {
+              "cloud.google.com/load-balancer-type" = "External"
+            }
+          }
+        }
+      })
+    }
+  }
+
+  depends_on = [helm_release.argocd]
 }
 
 

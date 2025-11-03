@@ -16,4 +16,5 @@ module "kubernetes_cluster" {
   gke_cluster_name      = data.terraform_remote_state.gke.outputs.cluster_name
   argocd_domain         = "argocd.cryptoviz.epitech-msc2026.me"
   argocd_admin_password = "" # If empty, a random one will be generated
+  ingress_ip_address    = data.terraform_remote_state.gke.outputs.ingress_ip_address
 }

@@ -19,3 +19,8 @@ output "cluster_ca_certificate" {
   sensitive   = true
 }
 
+output "ingress_ip_address" {
+  description = "The static IP address for the ingress controller"
+  value       = google_compute_address.ingress_ip.address
+}
+

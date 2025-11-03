@@ -108,3 +108,12 @@ resource "google_container_node_pool" "workers" {
   }
 }
 
+#####################################################################################################
+# Static IP for Ingress Controller
+#####################################################################################################
+resource "google_compute_address" "ingress_ip" {
+  name         = "${var.gke_cluster_name}-ingress-ip"
+  address_type = "EXTERNAL"
+  region       = substr(var.gke_zone, 0, length(var.gke_zone) - 2) # Extract region from zone
+}
+
