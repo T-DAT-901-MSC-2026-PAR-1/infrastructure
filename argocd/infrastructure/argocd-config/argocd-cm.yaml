@@ -18,7 +18,7 @@ data:
   # Application instance label key
   application.instanceLabelKey: argocd.argoproj.io/instance
   
-  # Dex configuration for GitHub OAuth (following best practices article)
+  # Dex configuration for GitHub OAuth
   dex.config: |
     connectors:
     - type: github
@@ -26,9 +26,9 @@ data:
       name: GitHub
       config:
         baseURL: https://github.com
-        clientID: $dex.github.clientId
-        clientSecret: $dex.github.clientSecret
+        clientID: $ARGOCD_DEX_GITHUB_CLIENT_ID
+        clientSecret: $ARGOCD_DEX_GITHUB_CLIENT_SECRET
         redirectURI: https://argocd.cryptoviz.epitech-msc2026.me/api/dex/callback
         orgs:
-        - name: cryptoviz
-          # Remove teams restriction to allow all org members
+        - name: T-DAT-901-MSC-2026-PAR-1
+          # Allow all organization members access

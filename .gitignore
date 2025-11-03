@@ -5,3 +5,7 @@ terraform-sa-key.json
 *.tfstate
 *.tfstate.*
 tfplan
+
+# Secrets (never commit to git)
+*-secret.yaml
+github-oauth-secret.yaml
