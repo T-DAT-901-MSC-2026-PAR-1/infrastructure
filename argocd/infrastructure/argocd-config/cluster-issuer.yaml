@@ -11,6 +11,7 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:
+    # Fallback to HTTP-01 for now - DNS-01 requires additional DNS provider configuration
     - http01:
         ingress:
           class: nginx

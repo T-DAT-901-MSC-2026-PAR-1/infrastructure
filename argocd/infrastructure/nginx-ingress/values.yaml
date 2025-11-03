@@ -1,7 +1,7 @@
 controller:
   service:
     type: LoadBalancer
-    loadBalancerIP: "${ingress_ip_address}"  # Regional static IP (europe-west1) - populated by Terraform
+    loadBalancerIP: "34.22.180.251"  # Regional static IP (europe-west1) - created by Terraform
     annotations:
       cloud.google.com/load-balancer-type: "External"
   config:

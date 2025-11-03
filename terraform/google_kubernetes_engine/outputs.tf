@@ -14,3 +14,8 @@ output "cluster_ca_certificate" {
   value       = module.google_kubernetes_engine.cluster_ca_certificate
   sensitive   = true
 }
+
+output "ingress_ip_address" {
+  description = "The static IP address for the ingress controller"
+  value       = module.google_kubernetes_engine.ingress_ip_address
+}
