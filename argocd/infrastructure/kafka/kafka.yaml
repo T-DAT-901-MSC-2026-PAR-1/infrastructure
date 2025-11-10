@@ -60,17 +60,3 @@ spec:
         limits:
           memory: 1Gi
           cpu: 500m
-  cruiseControl:
-    brokerCapacity:
-      inboundNetwork: 10000KB/s # 10 MB/s per broker
-      outboundNetwork: 10000KB/s # 10 MB/s per broker
-    resources:
-      requests:
-        memory: 512Mi
-        cpu: 250m
-      limits:
-        memory: 1Gi
-        cpu: 1000m
-    config:
-      num.concurrent.partition.movements.per.broker: 5
-      num.concurrent.leader.movements: 1000
