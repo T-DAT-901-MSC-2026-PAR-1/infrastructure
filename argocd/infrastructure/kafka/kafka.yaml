@@ -43,10 +43,6 @@ spec:
       offsets.topic.num.partitions: 50
       transaction.state.log.replication.factor: 3
       transaction.state.log.num.partitions: 50
-    brokerRackInitialization:
-      enabled: true
-  kraft:
-    enabled: true
   entityOperator:
     topicOperator:
       resources:
