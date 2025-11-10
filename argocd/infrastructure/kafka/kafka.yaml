@@ -43,6 +43,8 @@ spec:
       offsets.topic.num.partitions: 50
       transaction.state.log.replication.factor: 3
       transaction.state.log.num.partitions: 50
+      authorizer.class.name: org.apache.kafka.security.authorizer.AclAuthorizer
+      super.users: "User:CN=kafka;User:CN=kafka-client"
   entityOperator:
     topicOperator:
       resources:
