@@ -1,0 +1,31 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kafka
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "5" # Deployed after strimzi operator
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure.git
+      targetRevision: main
+      path: argocd/infrastructure/kafka/
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kafka
+  syncPolicy:
+    automated:
+      prune: true # Delete the resources that doesn't exist anymore in the git repository
+      selfHeal: true # Correct manual edits done on the cluster
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m

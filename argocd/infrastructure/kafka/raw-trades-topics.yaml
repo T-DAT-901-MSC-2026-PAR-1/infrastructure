@@ -1,0 +1,32 @@
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: raw-trades-btc-usdt
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: kafka
+spec:
+  partitions: 3
+  replicationFactor: 3
+  config:
+    retention.ms: 3600000 # 1 hour
+    segment.ms: 600000 # 10 minutes
+    compression.type: snappy # Reduces storage by ~50%
+    min.insync.replicas: "2" # Prevents data loss on broker crash
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: raw-trades-eth-usdt
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: kafka
+spec:
+  partitions: 3
+  replicationFactor: 3
+  config:
+    retention.ms: 3600000 # 1 hour
+    segment.ms: 600000 # 10 minutes
+    compression.type: snappy # Reduces storage by ~50%
+    min.insync.replicas: "2" # Prevents data loss on broker crash
