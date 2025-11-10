@@ -10,6 +10,11 @@ spec:
   kafka:
     version: 4.1.0
     metadataVersion: 4.1-IV0
+    authorization:
+      type: simple
+      superUsers:
+        - CN=kafka
+        - CN=kafka-client
     listeners:
       - name: plain
         port: 9092
@@ -43,8 +48,6 @@ spec:
       offsets.topic.num.partitions: 50
       transaction.state.log.replication.factor: 3
       transaction.state.log.num.partitions: 50
-      authorizer.class.name: org.apache.kafka.security.authorizer.AclAuthorizer
-      super.users: "User:CN=kafka;User:CN=kafka-client"
   entityOperator:
     topicOperator:
       resources:
