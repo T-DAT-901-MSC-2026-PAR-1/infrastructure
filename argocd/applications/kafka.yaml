@@ -15,13 +15,12 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: kafka
+    namespace: strimzi
   syncPolicy:
     automated:
       prune: true # Delete the resources that doesn't exist anymore in the git repository
       selfHeal: true # Correct manual edits done on the cluster
     syncOptions:
-      - CreateNamespace=true
       - RespectIgnoreDifferences=true
     retry:
       limit: 5
