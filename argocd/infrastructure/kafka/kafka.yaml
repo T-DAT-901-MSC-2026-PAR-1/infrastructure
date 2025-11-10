@@ -8,9 +8,8 @@ metadata:
     strimzi.io/cluster: kafka
 spec:
   kafka:
-    version: 3.7.0
-    metadataVersion: 3.7-IV0
-    replicas: 3
+    version: 4.1.0
+    metadataVersion: 4.1-IV0
     listeners:
       - name: plain
         port: 9092
@@ -69,7 +68,6 @@ spec:
     brokerCapacity:
       inboundNetwork: 10000KB/s # 10 MB/s per broker
       outboundNetwork: 10000KB/s # 10 MB/s per broker
-      disk: "300Gi"
     resources:
       requests:
         memory: 512Mi
