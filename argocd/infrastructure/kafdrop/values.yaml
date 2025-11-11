@@ -2,6 +2,10 @@ replicaCount: 1
 
 kafka:
   brokerConnect: "kafka-kafka-bootstrap.strimzi.svc.cluster.local:9092"
+  properties: |
+    security.protocol=SASL_PLAINTEXT
+    sasl.mechanism=SCRAM-SHA-512
+    sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="kafdrop" password="YKQWu0BNb6Wzx6Ku447QxZu0o5UJedAP";
 
 service:
   type: ClusterIP
