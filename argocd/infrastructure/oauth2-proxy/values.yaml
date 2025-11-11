@@ -39,6 +39,9 @@ oauth2Proxy:
   provider: github
   redirectURL: "https://oauth2-proxy.cryptoviz.epitech-msc2026.me/oauth2/callback"
   scope: "user:email"
+  whitelistedDomains:
+    - kafdrop.cryptoviz.epitech-msc2026.me
+    - oauth2-proxy.cryptoviz.epitech-msc2026.me
 
 resources:
   requests:
