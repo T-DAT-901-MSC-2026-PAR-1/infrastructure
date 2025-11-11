@@ -54,7 +54,7 @@ resources:
 redis:
   enabled: false
 
-configuration: |
+config: |
   provider = "github"
   redirect_url = "https://oauth2-proxy.cryptoviz.epitech-msc2026.me/oauth2/callback"
   scope = "user:email"
