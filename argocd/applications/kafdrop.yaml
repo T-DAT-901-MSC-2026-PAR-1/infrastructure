@@ -17,6 +17,7 @@ spec:
           - $values/argocd/infrastructure/kafdrop/values.yaml
     - repoURL: 'https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure.git'
       targetRevision: HEAD
+      path: argocd/infrastructure/kafdrop
       ref: values
   destination:
     server: https://kubernetes.default.svc
