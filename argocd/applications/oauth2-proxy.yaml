@@ -18,11 +18,6 @@ spec:
     - repoURL: https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure.git
       targetRevision: HEAD
       ref: values
-    - repoURL: https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure.git
-      targetRevision: HEAD
-      path: argocd/infrastructure/oauth2-proxy/
-      directory:
-        recurse: false
   destination:
     server: https://kubernetes.default.svc
     namespace: oauth2-proxy
