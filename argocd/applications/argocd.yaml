@@ -12,6 +12,8 @@ spec:
     repoURL: https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure
     targetRevision: HEAD
     path: argocd/infrastructure/argocd-config
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
