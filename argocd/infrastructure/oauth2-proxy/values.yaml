@@ -22,17 +22,17 @@ auth:
   clientID:
     valueFrom:
       secretKeyRef:
-        name: oauth2-proxy-credentials
+        name: oauth2-proxy
         key: client-id
   clientSecret:
     valueFrom:
       secretKeyRef:
-        name: oauth2-proxy-credentials
+        name: oauth2-proxy
         key: client-secret
   cookieSecret:
     valueFrom:
       secretKeyRef:
-        name: oauth2-proxy-credentials
+        name: oauth2-proxy
         key: cookie-secret
 
 oauth2Proxy:

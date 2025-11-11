@@ -10,3 +10,5 @@ tfplan
 *-secret.yaml
 **/templates/secret.yaml
 github-oauth-secret.yaml
+
+CLAUDE.md
