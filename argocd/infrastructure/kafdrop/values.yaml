@@ -6,8 +6,7 @@ image:
   pullPolicy: Always
 
 kafka:
-  brokerConnect: "kafka-kafka-bootstrap.strimzi.svc.cluster.local:9093"
-  properties: "security.protocol=SASL_SSL\nsasl.mechanism=SCRAM-SHA-512\nsasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username=\"kafdrop\" password=\"YKQWu0BNb6Wzx6Ku447QxZu0o5UJedAP\";\nssl.truststore.type=PEM\nssl.ca.location=/opt/kafdrop/etc/ca.crt"
+  brokerConnect: "kafka-kafka-bootstrap.strimzi.svc.cluster.local:9092"
   propertiesFile: "kafka.properties"
 
 service:
