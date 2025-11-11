@@ -5,7 +5,7 @@ metadata:
   name: kafdrop
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "5" # Deployed after strimzi kafka
+    argocd.argoproj.io/sync-wave: "6" # Deployed after oauth2-proxy and strimzi kafka
 spec:
   project: default
   sources:
