@@ -57,10 +57,9 @@ redis:
 containerSecurityContext:
   enabled: true
 
-args:
-  - "--provider=github"
-  - "--email-domain=*"
-  - "--redirect-url=https://oauth2-proxy.cryptoviz.epitech-msc2026.me/oauth2/callback"
-  - "--scope=user:email"
-  - "--whitelist-domain=kafdrop.cryptoviz.epitech-msc2026.me"
-  - "--whitelist-domain=oauth2-proxy.cryptoviz.epitech-msc2026.me"
+configuration: |
+  provider = "github"
+  email_domains = ["*"]
+  redirect_url = "https://oauth2-proxy.cryptoviz.epitech-msc2026.me/oauth2/callback"
+  upstreams = ["file:///dev/null"]
+  whitelist_domains = ["kafdrop.cryptoviz.epitech-msc2026.me", "oauth2-proxy.cryptoviz.epitech-msc2026.me"]
