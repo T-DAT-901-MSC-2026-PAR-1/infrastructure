@@ -1,0 +1,28 @@
+replicaCount: 1
+
+kafka:
+  brokerConnect: "kafka-bootstrap.strimzi.svc.cluster.local:9092"
+
+service:
+  type: ClusterIP
+  port: 9000
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: kafdrop.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+jvm:
+  opts: "-Xms64M -Xmx256M"

@@ -1,0 +1,35 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kafdrop
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "5" # Deployed after strimzi kafka
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/obsidiandynamics/kafdrop.git
+      targetRevision: HEAD
+      path: chart
+      helm:
+        valueFiles:
+          - $values/argocd/infrastructure/kafdrop/values.yaml
+    - repoURL: 'https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure.git'
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kafdrop
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
