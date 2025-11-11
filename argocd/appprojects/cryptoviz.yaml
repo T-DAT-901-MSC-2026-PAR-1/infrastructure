@@ -1,0 +1,32 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cryptoviz
+  namespace: argocd
+spec:
+  description: Project for CryptoViz applicative deployments
+
+  # Source repositories - restrict to cryptoviz repositories
+  sourceRepos:
+    - 'https://github.com/T-DAT-901-MSC-2026-PAR-1/scrapper-gabriel.git'
+    # Add more cryptoviz repositories here as needed
+
+  # Destinations - restrict to cryptoviz and strimzi namespaces
+  destinations:
+    - namespace: 'cryptoviz'
+      server: 'https://kubernetes.default.svc'
+    - namespace: 'strimzi'
+      server: 'https://kubernetes.default.svc'
+
+  # Cluster resources - whitelist permitted resources
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+
+  # Namespace resources - blacklist resources not allowed
+  namespaceResourceBlacklist:
+    - group: ''
+      kind: ResourceQuota
+    - group: ''
+      kind: LimitRange

@@ -9,12 +9,19 @@ metadata:
     - resources-finalizer.argocd.argoproj.io/finalizer
 spec:
   project: default
-  source:
-    repoURL: https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure
-    targetRevision: main
-    path: argocd/applications/
-    directory:
-      recurse: true
+  sources:
+    # ArgoCD Projects to group related content
+    - repoURL: https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure
+      targetRevision: main
+      path: argocd/appprojects/
+      directory:
+        recurse: true
+    # ArgoCD Applications
+    - repoURL: https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure
+      targetRevision: main
+      path: argocd/applications/
+      directory:
+        recurse: true
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:

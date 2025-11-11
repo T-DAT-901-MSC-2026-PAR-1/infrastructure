@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: scrapper-gabriel
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "7"
+spec:
+  project: cryptoviz
+  sources:
+    - repoURL: https://github.com/T-DAT-901-MSC-2026-PAR-1/scrapper-gabriel.git
+      targetRevision: main
+      path: k8s/
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cryptoviz
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - RespectIgnoreDifferences=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m

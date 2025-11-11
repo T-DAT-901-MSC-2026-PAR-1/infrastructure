@@ -15,6 +15,7 @@ spec:
     - http01:
         ingress:
           class: nginx
+
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer  # --> ClusterIssue is allowed in all namespaces

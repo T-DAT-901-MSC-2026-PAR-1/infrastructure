@@ -1,0 +1,79 @@
+---
+# ServiceAccount for scrapper service
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: scrapper-sa
+  namespace: cryptoviz
+  labels:
+    app.kubernetes.io/name: scrapper-producer
+    app.kubernetes.io/component: service-account
+
+---
+# Role for scrapper in cryptoviz namespace - read ConfigMaps
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: scrapper-role
+  namespace: cryptoviz
+  labels:
+    app.kubernetes.io/name: scrapper-producer
+    app.kubernetes.io/component: rbac
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "watch"]
+
+---
+# RoleBinding for scrapper in cryptoviz namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: scrapper-rolebinding
+  namespace: cryptoviz
+  labels:
+    app.kubernetes.io/name: scrapper-producer
+    app.kubernetes.io/component: rbac
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: scrapper-role
+subjects:
+- kind: ServiceAccount
+  name: scrapper-sa
+  namespace: cryptoviz
+
+---
+# Role for scrapper in strimzi namespace - read Kafka credentials
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: scrapper-role-strimzi
+  namespace: strimzi
+  labels:
+    app.kubernetes.io/name: scrapper-producer
+    app.kubernetes.io/component: rbac
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  resourceNames: ["raw-trades-scrapper", "kafka-cluster-ca-cert"]
+  verbs: ["get"]
+
+---
+# RoleBinding for scrapper in strimzi namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: scrapper-rolebinding-strimzi
+  namespace: strimzi
+  labels:
+    app.kubernetes.io/name: scrapper-producer
+    app.kubernetes.io/component: rbac
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: scrapper-role-strimzi
+subjects:
+- kind: ServiceAccount
+  name: scrapper-sa
+  namespace: cryptoviz

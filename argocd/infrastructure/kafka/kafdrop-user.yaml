@@ -19,13 +19,12 @@ spec:
         operations:
           - Read
           - Describe
-      # Allow describing cluster (includes ACL descriptions)
+      # Allow describing cluster
       - resource:
           type: cluster
         operations:
           - Describe
           - DescribeConfigs
-          - ClusterAction
       # Allow reading consumer group metadata
       - resource:
           type: group
