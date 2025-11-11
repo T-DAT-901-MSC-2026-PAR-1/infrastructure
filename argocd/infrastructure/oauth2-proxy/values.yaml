@@ -59,6 +59,7 @@ containerSecurityContext:
 
 args:
   - "--provider=github"
+  - "--email-domain=*"
   - "--redirect-url=https://oauth2-proxy.cryptoviz.epitech-msc2026.me/oauth2/callback"
   - "--scope=user:email"
   - "--whitelist-domain=kafdrop.cryptoviz.epitech-msc2026.me"
