@@ -1,0 +1,49 @@
+image:
+  registry: docker.io
+  repository: bitnamilegacy/oauth2-proxy
+  tag: latest
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: nginx
+  hostname: oauth2-proxy.cryptoviz.epitech-msc2026.me
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  tls: true
+  certManager: true
+
+auth:
+  clientID:
+    valueFrom:
+      secretKeyRef:
+        name: oauth2-proxy-credentials
+        key: client-id
+  clientSecret:
+    valueFrom:
+      secretKeyRef:
+        name: oauth2-proxy-credentials
+        key: client-secret
+  cookieSecret:
+    valueFrom:
+      secretKeyRef:
+        name: oauth2-proxy-credentials
+        key: cookie-secret
+
+oauth2Proxy:
+  provider: github
+  redirectURL: "https://oauth2-proxy.cryptoviz.epitech-msc2026.me/oauth2/callback"
+  scope: "user:email"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi

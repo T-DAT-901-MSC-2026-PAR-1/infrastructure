@@ -1,0 +1,40 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: oauth2-proxy
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2" # Deployed after nginx-ingress and cert-manager
+spec:
+  project: default
+  sources:
+    - repoURL: oci://registry-1.docker.io/bitnamicharts
+      chart: oauth2-proxy
+      targetRevision: "*"
+      helm:
+        valueFiles:
+          - $values/argocd/infrastructure/oauth2-proxy/values.yaml
+    - repoURL: https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure.git
+      targetRevision: HEAD
+      ref: values
+    - repoURL: https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure.git
+      targetRevision: HEAD
+      path: argocd/infrastructure/oauth2-proxy/
+      directory:
+        recurse: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: oauth2-proxy
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
