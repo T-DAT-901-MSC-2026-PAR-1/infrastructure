@@ -9,17 +9,16 @@ service:
 
 ingress:
   enabled: true
-  className: nginx
+  ingressClassName: nginx
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/auth-url: "https://oauth2-proxy.cryptoviz.epitech-msc2026.me/oauth2/auth"
     nginx.ingress.kubernetes.io/auth-signin: "https://oauth2-proxy.cryptoviz.epitech-msc2026.me/oauth2/start?rd=https://$host$request_uri"
     nginx.ingress.kubernetes.io/auth-response-headers: "X-Auth-Request-User"
+  path: /
+  pathType: Prefix
   hosts:
-    - host: kafdrop.cryptoviz.epitech-msc2026.me
-      paths:
-        - path: /
-          pathType: Prefix
+    - kafdrop.cryptoviz.epitech-msc2026.me
   tls:
     - secretName: kafdrop-tls
       hosts:
