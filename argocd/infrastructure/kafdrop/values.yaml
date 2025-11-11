@@ -1,7 +1,7 @@
 replicaCount: 1
 
 kafka:
-  brokerConnect: "kafka-bootstrap.strimzi.svc.cluster.local:9092"
+  brokerConnect: "kafka-kafka-bootstrap.strimzi.svc.cluster.local:9092"
 
 service:
   type: ClusterIP
