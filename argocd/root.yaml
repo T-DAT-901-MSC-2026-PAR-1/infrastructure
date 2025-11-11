@@ -16,7 +16,7 @@ spec:
       path: argocd/appprojects/
       directory:
         recurse: true
-    # ArgoCD Applications
+    # ArgoCD Applications (which manage everything else)
     - repoURL: https://github.com/T-DAT-901-MSC-2026-PAR-1/infrastructure
       targetRevision: main
       path: argocd/applications/
@@ -24,6 +24,7 @@ spec:
         recurse: true
   destination:
     server: https://kubernetes.default.svc
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
