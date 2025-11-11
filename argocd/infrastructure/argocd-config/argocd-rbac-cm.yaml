@@ -17,16 +17,17 @@ data:
     # Admin access for cryptoviz org members in cryptoviz-team
     g, cryptoviz:cryptoviz-team, role:admin
     g, cryptoviz, role:developer
-    
+
     # Custom developer role with specific permissions
     p, role:developer, applications, *, */*, allow
+    p, role:developer, applications, sync, */*, allow
     p, role:developer, applicationsets, *, */*, allow
     p, role:developer, clusters, get, *, allow
     p, role:developer, repositories, *, *, allow
     p, role:developer, projects, *, *, allow
     p, role:developer, logs, get, */*, allow
     p, role:developer, exec, create, */*, allow
-    
+
     # Read-only access for all authenticated users
     p, role:readonly, applications, get, */*, allow
     p, role:readonly, applicationsets, get, */*, allow
