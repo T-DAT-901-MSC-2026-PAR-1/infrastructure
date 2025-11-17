@@ -29,3 +29,14 @@ down SERVICE:
     else
         echo "Available options are: kafka, terraform" >&2
     fi
+
+[group("Docker Compose")]
+logs SERVICE:
+    #!/bin/bash
+    if [ "{{SERVICE}}" = "kafka" ]; then
+        docker compose -f docker/kafka/compose.yml logs;
+    elif [ "{{SERVICE}}" = "terraform" ]; then
+        docker compose -f docker/terraform/compose.yml logs 
+    else
+        echo "Available options are: kafka, terraform" >&2
+    fi
