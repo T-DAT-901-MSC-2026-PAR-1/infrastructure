@@ -1,6 +1,6 @@
 # Infrastructure
 
-This repository stores all the infrastructure configurations for the Crypto Viz project.
+This repository stores all the infrastructure configurations for the CryptoViz project.
 
 ## What is Just?
 [Just](https://github.com/casey/just) is a command runner similar to Make, but simpler and more modern. It lets you define recipes in a `Justfile` and run them easily.
@@ -33,5 +33,6 @@ just # Displays the available recipes
 For example, to deploy Kafka:
 
 ```sh
+just generate-certs # Generates the certificates for SSL
 just deploy kafka # Deploys kafka with Docker Compose
 ```

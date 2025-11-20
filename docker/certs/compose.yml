@@ -1,0 +1,21 @@
+services:
+  cert-generator:
+    image: eclipse-temurin:25.0.1_8-jre-noble
+    container_name: kafka-cert-generator
+    # Mount the repository root into /workdir so the script can write certs back to host
+    volumes:
+      - ../../:/workdir:rw
+    environment:
+      # Passwords for keystores/truststores (can be overridden by setting env vars on the host)
+      PASSWORD: ${PASSWORD}
+      # Number of days for certificate validity
+      DAYS: "365"
+    # Run apt to install openssl (keytool is provided by the JDK), then run the generation script
+    # We execute the script by its absolute path within the mounted workdir
+    command: >
+      bash -c "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openssl ca-certificates && rm -rf /var/lib/apt/lists/* && chmod +x /workdir/docker/kafka/script/generate-certs.sh && /workdir/docker/kafka/script/generate-certs.sh"
+    working_dir: /workdir
+    restart: 'no'
+    tty: true
+    stdin_open: false
+    user: root
