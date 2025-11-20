@@ -13,3 +13,19 @@ github-oauth-secret.yaml
 kafka-properties-configmap.yaml
 
 CLAUDE.md
+
+# Ignore generated Kafka certificates and keystores/truststores
+docker/kafka/*/certs/
+docker/kafka/client/*client*
+!docker/kafka/client/README.md
+
+# CA directory for generated CA cert/key
+docker/kafka/ca/
+
+# If specific keystore files are committed, ignore by pattern as well
+**/kafka.*.keystore.jks
+**/kafka.*.truststore.jks
+**/kafka.client.*.jks
+
+**/.env*
+!***/.env.example
