@@ -5,6 +5,17 @@ networks:
   kafka_kafka:
     external: true
 
+# Common worker defaults to avoid duplication
+x-worker-common: &worker_common
+  image: apache/spark:4.0.1
+  restart: unless-stopped
+  depends_on:
+    - spark-master
+  command: ["/opt/spark/bin/spark-class", "org.apache.spark.deploy.worker.Worker", "spark://spark-master:7077"]
+  networks:
+    - spark
+    - kafka_kafka
+
 services:
   spark-master:
     image: apache/spark:4.0.1
@@ -22,7 +33,7 @@ services:
     command: ["/opt/spark/bin/spark-class", "org.apache.spark.deploy.master.Master"]
     restart: unless-stopped
     volumes:
-      - ./logs:/opt/spark/logs
+      - ./logs/master:/opt/spark/logs
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/ || exit 1"]
       interval: 30s
@@ -31,3 +42,72 @@ services:
     networks:
       - spark
       - kafka_kafka
+
+  spark-worker-1:
+    <<: *worker_common
+    container_name: spark-worker-1
+    environment:
+      SPARK_WORKER_MEMORY: 1g
+      SPARK_WORKER_CORES: 1
+      SPARK_WORKER_PORT: 7078
+      SPARK_WORKER_WEBUI_PORT: 8081
+      SPARK_MASTER: spark://spark-master:7077
+    expose:
+      - 7078
+      - 8081
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./logs/worker-1:/opt/spark/logs
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8081/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+
+  spark-worker-2:
+    <<: *worker_common
+    container_name: spark-worker-2
+    environment:
+      SPARK_WORKER_MEMORY: 1g
+      SPARK_WORKER_CORES: 1
+      SPARK_WORKER_PORT: 7079
+      SPARK_WORKER_WEBUI_PORT: 8082
+      SPARK_MASTER: spark://spark-master:7077
+    expose:
+      - 7079
+      - 8082
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./logs/worker-2:/opt/spark/logs
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8082/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+
+  spark-worker-3:
+    <<: *worker_common
+    container_name: spark-worker-3
+    environment:
+      SPARK_WORKER_MEMORY: 1g
+      SPARK_WORKER_CORES: 1
+      SPARK_WORKER_PORT: 7080
+      SPARK_WORKER_WEBUI_PORT: 8083
+      SPARK_MASTER: spark://spark-master:7077
+    expose:
+      - 7080
+      - 8083
+    ports:
+      - "8083:8083"
+    volumes:
+      - ./logs/worker-3:/opt/spark/logs
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8083/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    
