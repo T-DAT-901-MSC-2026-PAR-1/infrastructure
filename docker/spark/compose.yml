@@ -1,0 +1,33 @@
+name: spark
+
+networks:
+  spark:
+  kafka_kafka:
+    external: true
+
+services:
+  spark-master:
+    image: apache/spark:4.0.1
+    container_name: spark-master
+    environment:
+      SPARK_MASTER_HOST: spark-master # Use the compose service name
+      SPARK_MASTER_PORT: 7077
+      SPARK_MASTER_WEBUI_PORT: 8080
+    expose:
+      - 7077
+      - 8080
+    ports:
+      - "8080:8080" # Spark Master Web UI (available at http://127.0.0.1:8080/)
+    # Run master in foreground so container stays alive. start-master.sh backgrounds the process.
+    command: ["/opt/spark/bin/spark-class", "org.apache.spark.deploy.master.Master"]
+    restart: unless-stopped
+    volumes:
+      - ./logs:/opt/spark/logs
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks:
+      - spark
+      - kafka_kafka
