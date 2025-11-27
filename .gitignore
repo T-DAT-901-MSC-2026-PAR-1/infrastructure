@@ -13,3 +13,6 @@ github-oauth-secret.yaml
 kafka-properties-configmap.yaml
 
 CLAUDE.md
+
+**.env
+!**.env.example
