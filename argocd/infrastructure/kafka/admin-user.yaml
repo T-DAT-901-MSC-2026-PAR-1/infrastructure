@@ -1,0 +1,36 @@
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: kafka-admin
+  namespace: strimzi
+  labels:
+    strimzi.io/cluster: kafka
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    type: simple
+    acls:
+      # Permissions pour lire les métadonnées du cluster
+      - resource:
+          type: cluster
+        operations:
+          - Describe
+          - DescribeConfigs
+      # Permissions pour tous les topics
+      - resource:
+          type: topic
+          name: "*"
+        operations:
+          - Read
+          - Write
+          - Describe
+          - DescribeConfigs
+      # Permissions pour tous les groupes de consommateurs
+      - resource:
+          type: group
+          name: "*"
+        operations:
+          - Read
+          - Describe
