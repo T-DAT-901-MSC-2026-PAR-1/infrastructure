@@ -37,6 +37,9 @@ spec:
           hostTemplate: kafka-broker-{nodeId}.cryptoviz.epitech-msc2026.me
           bootstrap:
             host: kafka-bootstrap.cryptoviz.epitech-msc2026.me
+          annotations:
+            nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+            nginx.ingress.kubernetes.io/backend-protocol: "TCP"
     config:
       auto.create.topics.enable: "false"
       default.replication.factor: 3
