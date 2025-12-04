@@ -28,10 +28,15 @@ spec:
           type: scram-sha-512
       - name: external
         port: 9094
-        type: nodeport
+        type: ingress
         tls: true
         authentication:
           type: scram-sha-512
+        configuration:
+          class: nginx
+          hostTemplate: kafka-broker-{nodeId}.cryptoviz.epitech-msc2026.me
+          bootstrap:
+            host: kafka-bootstrap.cryptoviz.epitech-msc2026.me
     config:
       auto.create.topics.enable: "false"
       default.replication.factor: 3

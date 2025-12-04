@@ -8,6 +8,7 @@ controller:
     use-forwarded-headers: "true"
     proxy-real-ip-cidr: "0.0.0.0/0"
     enable-real-ip: "true"
+    enable-ssl-passthrough: "true"  # Required for Kafka ingress
   metrics:
     enabled: true
   admissionWebhooks:
