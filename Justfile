@@ -25,9 +25,9 @@ up SERVICE:
 down SERVICE:
     #!/bin/bash
     if [ "{{SERVICE}}" = "kafka" ]; then
-        docker compose -f docker/kafka/compose.yml down;
+        docker compose -f docker/kafka/compose.yml down --volumes
     elif [ "{{SERVICE}}" = "spark" ]; then
-        docker compose -f docker/spark/compose.yml down
+        docker compose -f docker/spark/compose.yml down --volumes
     elif [ "{{SERVICE}}" = "terraform" ]; then
         docker compose -f docker/terraform/compose.yml down
     else
